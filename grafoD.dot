@@ -1,0 +1,15 @@
+digraph {
+rankdir = "LR"
+
+node [shape=circle] Node1 [label="1"];
+node [shape=circle] Node2 [label="2"];
+node [shape=circle] Node3 [label="3"];
+node [shape=circle] Node4 [label="4"];
+node [shape=circle] Node5 [label="5"];
+Node1 -> Node2 [label=""];
+Node1 -> Node4 [label=""];
+Node2 -> Node1 [label=""];
+Node2 -> Node3 [label=""];
+Node3 -> Node4 [label=""];
+
+}

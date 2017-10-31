@@ -1,11 +1,14 @@
 package util;
 
-import graphs.digraph.DiGraph;
+
+import graphs.digraph.DigraphList;
+import graphs.digraph.Edge;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
-public class GraphDiagram<T> {
+public class GraphDiagram {
 
     private FileWriter fileWriter;
 
@@ -21,17 +24,18 @@ public class GraphDiagram<T> {
         }
     }
 
-    public void createGraphFile(DiGraph<Integer> diGraph){
+    public void createGraphFile(DigraphList<Integer> diGraph){
         try{
             fileWriter.write("digraph {\n");
             fileWriter.write("rankdir = \"LR\"\n\n");
             for (int i = 0; i < diGraph.order(); i++) {
                 writeNodeToFile(diGraph.getVertex(i));
             }
-            boolean[][] aux = diGraph.getAdjacentMatrix();
-            for (int i = 0; i < aux.length; i++) {
-                for (int j = 0; j < aux.length; j++) {
-                    if(aux[i][j]) writeTransitionToFile(i, j);
+            fileWriter.write("\n");
+            for (int i = 0; i < diGraph.order(); i++) {
+                List<Edge<Integer>> listOfAdyacentes = diGraph.getListOfAdyacentVertex(i);
+                for (Edge<Integer> edge : listOfAdyacentes) {
+                    writeTransitionToFile(i, edge.getW(), edge.getWeight());
                 }
             }
             fileWriter.write("\n");
@@ -42,11 +46,11 @@ public class GraphDiagram<T> {
         }
     }
 
-    private void writeTransitionToFile(int v, int w) {
+    private void writeTransitionToFile(int v, int w, int weight) {
         String text;
         try{
             text = "Node" + v + " -> Node" + w +
-                    " [label=\"\"];\n";
+                    " [label=\"" + weight + "\"];\n";
             fileWriter.write(text);
         } catch (IOException e) {
             System.out.println(e.getMessage());

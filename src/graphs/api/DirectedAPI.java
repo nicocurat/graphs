@@ -44,14 +44,16 @@ public class DirectedAPI {
         List<Integer> result = new ArrayList<>();
         boolean[] visited = new boolean[digraph.order()];
         for (int i = 0; i < digraph.order(); i++) {
-            Queue<Integer> queue = new PriorityQueue<>();
-            queue.add(i);
-            while (!queue.isEmpty()){
-                int current = queue.poll();
-                if(digraph.getListOfAdyacentVertex(current).size() > 0) visited[current] = true;
-                for (Edge<Integer> edge: digraph.getListOfAdyacentVertex(current)) {
-                    if(!visited[edge.getW()]){
-                        queue.add(edge.getW());
+            if(!visited[i]) {
+                Queue<Integer> queue = new PriorityQueue<>();
+                queue.add(i);
+                while (!queue.isEmpty()) {
+                    int current = queue.poll();
+                    if (digraph.getListOfAdyacentVertex(current).size() > 0) visited[current] = true;
+                    for (Edge<Integer> edge : digraph.getListOfAdyacentVertex(current)) {
+                        if (!visited[edge.getW()]) {
+                            queue.add(edge.getW());
+                        }
                     }
                 }
             }

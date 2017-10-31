@@ -28,18 +28,21 @@ public class DigraphList<T> implements Graph<T> {
         }
     }
 
+    //O(1)
     @Override
     public void addVertex(T t) {
         vertices.add(t);
         order++;
     }
 
+    //O(1)
     @Override
     public void addEdge(int v, int w, int weight) {
         edges[v].add(0, new Edge<>(weight, w)); //Borrar el 0, no hace falta!!!!
         numberOfEdges++;
     }
 
+    //O(m) --> m cantidad de aristas de v
     @Override
     public void removeEdge(int v, int w) {
         if(edges[v] == null) throw new IllegalArgumentException();
@@ -53,6 +56,7 @@ public class DigraphList<T> implements Graph<T> {
 
     /**
      * Borras el vertice en la posicion v, no el vertice v.
+     * O(n)
      * @param v
      */
     @Override
@@ -68,6 +72,7 @@ public class DigraphList<T> implements Graph<T> {
         }
     }
 
+    //O(m(
     @Override
     public boolean doesEdgeExist(int v, int w) {
         if (edges[v].size() == 0) return false;
@@ -77,21 +82,25 @@ public class DigraphList<T> implements Graph<T> {
         return false;
     }
 
+    //O(1)
     @Override
     public int order() {
         return order;
     }
 
+    //O(1)
     @Override
     public int numberOfEdges() {
         return numberOfEdges;
     }
 
+    //O(1)
     @Override
     public T getVertex(int v) {
         return vertices.get(v);
     }
 
+    //O(1)
     @Override
     public List<Edge<Integer>> getListOfAdyacentVertex(int v) {
         return edges[v];
